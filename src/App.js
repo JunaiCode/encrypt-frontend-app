@@ -39,7 +39,7 @@ function App() {
           </div>
         </div>
         <div>
-          <label htmlFor='key'>Enter Key</label>
+          <label htmlFor='key'>Enter Key:</label>
           <input id='key' type="password" className="password-input" onChange={handleKeyChange} />
         </div>
         <Dropzone keyValue={key} mode={mode} />
