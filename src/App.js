@@ -45,9 +45,9 @@ function App() {
         <Dropzone keyValue={key} mode={mode} />
         </div>
         {mode === 'encrypt' ? (
-          <img src="./encrypt.png" alt="encrypt-img" />
+          <img src="./encrypt.png" className='image' alt="encrypt-img" />
           
-        ):<img src="./decrypt.png" alt="decrypt-img" />}
+        ):<img src="./decrypt.png" className='image' alt="decrypt-img" />}
       </main>
       <footer className='footer'>
         <p>Created by Juan Palta, Danilo Erazo, Mateo Rada.</p>
