@@ -39,37 +39,54 @@ function MyDropzone({ mode, keyValue }) {
               type: 'error',
               show: true
             });
+            response.json().then(data => {
+              console.log(data);
+              if(data.message === "Hash does not match, data integrity compromised!"){
+                setAlert({
+                  message: data.message,
+                  type: 'corrupted',
+                  show: true
+                });
+              }else{
+                setAlert({
+                  message: data.message,
+                  type: 'error',
+                  show: true
+                });
+              }
+              
+            });
 
-            throw new Error('Network response was not ok');
+          } else {
+            return response.blob().then(blob => {
+              const downloadUrl = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = downloadUrl;
+              a.download = selectedFile.name; // Puedes cambiar el nombre del archivo si es necesario
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+              window.URL.revokeObjectURL(downloadUrl);
+              setAlert({
+                message: "The file was processed successfully",
+                type: 'success',
+                show: true
+              });
+            })
           }
-          return response.blob();
         })
-        .then(blob => {
-          const downloadUrl = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = downloadUrl;
-          a.download = selectedFile.name; // Puedes cambiar el nombre del archivo si es necesario
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          window.URL.revokeObjectURL(downloadUrl);
-          setAlert({
-            message: "El archivo se ha procesado correctamente",
-            type: 'success',
-            show: true
-          });
-        })
+
         .catch(error => {
           setAlert({
-            message: "La clave ingresada es incorrecta",
+            message: "Password is incorrect",
             type: 'error',
             show: true
           });
-          console.error( error);
+          console.error(error);
         });
-    }else{
+    } else {
       setAlert({
-        message: "Por favor seleccione un archivo",
+        message: "Please select a file",
         type: 'warning',
         show: true
       });

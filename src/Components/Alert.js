@@ -17,11 +17,13 @@ export default function Alert({ message, type, setShow }) {
             case 'error':
                 return 'Error';
             case 'success':
-                return 'Procesado';
+                return 'Processed';
             case 'warning':
-                return 'Advertencia';
+                return 'Warning';
+            case 'corrupted':
+                return 'Corrupted';
             default:
-                return 'Error en el sistema';
+                return 'System error';
         }
     }
 
@@ -33,6 +35,8 @@ export default function Alert({ message, type, setShow }) {
                 return './success.svg';
             case 'warning':
                 return './warning.svg';
+            case 'corrupted':
+                return './corrupted.gif';
             default:
                 return './error.svg';
         }
@@ -43,7 +47,7 @@ export default function Alert({ message, type, setShow }) {
             <div className='bg'>
                 <div className={`alert alert-${type}`}>
                     <div className='icon'>
-                        <img src={selectIcon(type)} alt={type} />
+                        <img src={selectIcon(type)} alt={type} className='img' />
                     </div>
                     <div className='content'>
                         <span className={`title title-${type}`}>{selectTitle(type)}</span>
